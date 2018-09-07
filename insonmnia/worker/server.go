@@ -801,11 +801,6 @@ func (m *Worker) StopTask(ctx context.Context, request *pb.ID) (*pb.Empty, error
 	}
 
 	m.setStatus(&pb.TaskStatusReply{Status: pb.TaskStatusReply_FINISHED}, request.Id)
-	_, err := m.storage.Remove(containerInfo.TaskId)
-
-	if err != nil {
-		log.G(ctx).Warn("failed to delete cached container info", zap.Error(err))
-	}
 
 	return &pb.Empty{}, nil
 }
